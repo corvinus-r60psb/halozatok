@@ -1,0 +1,42 @@
+﻿div {
+    background: rgb(255, 230, 230);
+    color: red;
+    padding: 15px;
+}
+
+p {
+    padding-left: 25px;
+}
+
+
+h1 {
+    text-align: center;
+    text-shadow: 5px 3px 1px red;
+}
+
+h2 {
+    color: blue;
+    text-decoration: underline;
+}
+
+p {
+    color: green;
+    font-style: italic;
+}
+
+img {
+    width: 300px;
+    height: 300px;
+    object-fit: cover;
+}
+
+p.szep-p {
+    margin-bottom: 5px;
+    border-bottom: 3px solid black;
+    padding-bottom: 3px;
+}
+
+#elso-ul {
+    border: 3px dotted black;
+    padding: 50px;
+}
