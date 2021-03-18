@@ -1,0 +1,86 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>
+        PASCAL HÁROMSZÖG
+    </title>
+
+    <style>
+        #pascal {
+        }
+
+        .sor {
+            display: block;
+            text-align: center;
+        }
+
+        .elem {
+            width: 30px;
+            height: 30px;
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+    <div id="pascal"></div>
+
+    <script>
+    window.onload = () => {
+
+      var triangle = [];
+
+      document.getElementById("pascal").innerHTML = "";
+      for (var sor = 0; sor < 10; sor++) {
+
+
+
+        var plusszSor = document.createElement("div")
+        plusszSor.innerHTML = "";
+        plusszSor.setAttribute("id", "sor_" + sor);
+
+
+        plusszSor.classList.add("sor");
+
+
+        for (var oszlop = 0; oszlop <= sor; oszlop++) {
+
+
+          var pascalSZam = document.createElement("div")
+
+          pascalSZam.setAttribute("id", "elem_" + oszlop);
+
+
+          pascalSZam.classList.add("elem");
+
+          if(oszlop == 0){
+            triangle[sor] = [];
+          }
+
+          var elemSzam = 1;
+
+          if (sor > 0 && oszlop > 0 && oszlop < sor){
+
+            elemSzam = triangle[sor-1][oszlop-1] + triangle[sor-1][oszlop];
+          }
+
+
+          triangle[sor][oszlop] = elemSzam;
+          pascalSZam.innerHTML = elemSzam;
+
+
+          var c = 255 - elemSzam;
+
+          pascalSZam.style.backgroundColor = 'rgb('+ c +', '+ c +', '+ c +')';
+          plusszSor.appendChild(pascalSZam);
+
+
+
+        }
+
+        document.getElementById("pascal").appendChild(plusszSor);
+      }
+    }
+    </script>
+</body>
+</html>
