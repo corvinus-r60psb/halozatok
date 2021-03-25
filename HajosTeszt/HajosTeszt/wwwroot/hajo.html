@@ -78,18 +78,102 @@
 
         <div id="középső">
             <div id="válaszok">
-                <div id="válasz1" class="kerdes kattintható">Válasz 1</div>
-                <div id="válasz2" class="kerdes kattintható rossz">Válasz 2</div>
-                <div id="válasz3" class="kerdes kattintható jo">Válasz 3</div>
+                <div id="válasz1" class="kerdes kattintható m1">Válasz 1</div>
+                <div id="válasz2" class="kerdes kattintható rossz m2">Válasz 2</div>
+                <div id="válasz3" class="kerdes kattintható jo m3">Válasz 3</div>
             </div>
             <div id="kép">
                 <img id="kép1" src="https://szoft1.comeback.hu/hajo/teszt-0050.jpg" />
             </div>
         </div>
         <div id="vezérlő">
-            <div class="gomb kattintható">Vissza</div>
-            <div class="gomb kattintható">Előre</div>
+            <div class="gomb kattintható" id="balra">Vissza</div>
+            <div class="gomb kattintható" id="jobbra">Előre</div>
         </div>
     </div>
+    <script>
+    var kerdesek;
+
+    function letoltes(){
+      fetch('questions.json')
+          .then(response => response.json())
+          .then(data => letoltesBefejezodott(data)
+      );
+    }
+
+
+    function letoltesBefejezodott(d) {
+        alert("Sikeres letöltés");
+        console.log(d)
+        kerdesek = d.
+
+        kerdesMegjelenites(0)
+    }
+
+    var mostaniKerdes = 0;
+
+    function kerdesMegjelenites(kerdes) {
+      document.getElementById("kérdés_szöveg").innerHTML = kerdesek[kerdes]['questionText'];
+
+      document.getElementById("válasz1").innerHTML = kerdesek[kerdes]['answer1'];
+      document.getElementById("válasz2").innerHTML = kerdesek[kerdes]['answer2'];
+      document.getElementById("válasz3").innerHTML = kerdesek[kerdes]['answer3'];
+
+      document.getElementById("kép1").src = "https://szoft1.comeback.hu/hajo/" + kerdesek[kerdes]['image'];
+
+
+      document.getElementById("válasz1").classList.remove("jo");
+      document.getElementById("válasz2").classList.remove("jo");
+      document.getElementById("válasz3").classList.remove("jo");
+      document.getElementById("válasz1").classList.remove("rossz");
+      document.getElementById("válasz2").classList.remove("rossz");
+      document.getElementById("válasz3").classList.remove("rossz");
+
+
+    }
+
+
+    document.getElementById("balra").addEventListener("click", function() {
+      if (mostaniKerdes <= 0){
+        return;
+      }
+      mostaniKerdes-=1;
+      kerdesMegjelenites(mostaniKerdes);
+    });
+    document.getElementById("jobbra").addEventListener("click", function() {
+      if (mostaniKerdes >= kerdesek.length - 1){
+        return;
+      }
+      mostaniKerdes+=1;
+      kerdesMegjelenites(mostaniKerdes);
+    });
+
+    document.getElementById("válasz1").addEventListener("click", function() {
+      if(document.getElementById("válasz1").classList.contains("m" + kerdesek[mostaniKerdes]["correctAnswer"])){
+        document.getElementById("válasz1").classList.add("jo");
+      } else {
+        document.getElementById("válasz1").classList.add("rossz");
+      }
+    });
+    document.getElementById("válasz2").addEventListener("click", function() {
+      if(document.getElementById("válasz2").classList.contains("m" + kerdesek[mostaniKerdes]["correctAnswer"])){
+        document.getElementById("válasz2").classList.add("jo");
+      } else {
+        document.getElementById("válasz2").classList.add("rossz");
+      }
+    });
+    document.getElementById("válasz3").addEventListener("click", function() {
+      if(document.getElementById("válasz3").classList.contains("m" + kerdesek[mostaniKerdes]["correctAnswer"])){
+        document.getElementById("válasz3").classList.add("jo");
+      } else {
+        document.getElementById("válasz3").classList.add("rossz");
+      }
+    });
+
+    window.onload = function() {
+              letoltes();
+          }
+    </script>
+
 </body>
 </html>
